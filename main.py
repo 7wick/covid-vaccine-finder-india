@@ -3,7 +3,8 @@ import requests
 # inputs
 
 date = "03-05-2021"     # will show you all the available centres 7 days from this date
-district_name = "lucknow"     # edit the name of your district
+district_name = "gorakhpur"       # edit the name of your district, if your state is Uttar Pradesh
+district_id = 0     # enter your district_id, if your state is not Uttar Pradesh
 age = 50        # age of the person to be vaccinated
 
 # code
@@ -49,7 +50,8 @@ districts = [{"district_id": 622, "district_name": "Agra"}, {"district_id": 623,
              {"district_id": 693, "district_name": "Sonbhadra"}, {"district_id": 694, "district_name": "Sultanpur"},
              {"district_id": 695, "district_name": "Unnao"}, {"district_id": 696, "district_name": "Varanasi"}]
 
-district_id = next(item for item in districts if item["district_name"] == district_name.capitalize())['district_id']
+if district_id == 0:
+    district_id = next(item for item in districts if item["district_name"] == district_name.capitalize())['district_id']
 
 final_response = requests.get(
     "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict",
@@ -58,17 +60,17 @@ final_response = requests.get(
         'date': date
     },
 )
-
+total_available_centres = 0
 for centre in final_response.json()["centers"]:
     for details in centre["sessions"]:
         result = dict()
         if details['available_capacity'] > 0 and details["min_age_limit"] <= age:
+            total_available_centres += 1
             result["name"] = centre["name"]
             result["block_name"] = centre["block_name"]
             result["pincode"] = centre["pincode"]
             result["min_age_limit"] = details["min_age_limit"]
             result["date"] = details["date"]
             result["available_capacity"] = details["available_capacity"]
-            print(result)
-            print("\n")
-
+            print(result, "\n")
+print("\nTotal available centres: ", total_available_centres)
