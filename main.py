@@ -4,7 +4,7 @@ import requests
 
 date = "03-05-2021"     # will show you all the available centres 7 days from this date
 district_name = "gorakhpur"       # edit the name of your district, if your state is Uttar Pradesh
-district_id = 0     # enter your district_id, if your state is not Uttar Pradesh
+district_id = 0  # enter your district_id, if your state is not Uttar Pradesh
 age = 50        # age of the person to be vaccinated
 
 # code
@@ -73,4 +73,9 @@ for centre in final_response.json()["centers"]:
             result["date"] = details["date"]
             result["available_capacity"] = details["available_capacity"]
             print(result, "\n")
-print("\nTotal available centres: ", total_available_centres)
+
+if total_available_centres > 0:
+    print("\nTotal available centres: ", total_available_centres)
+    print("\nRegister your slot at https://www.cowin.gov.in/home")
+else:
+    print("\nNo vaccines available in this district, for the given age!")
