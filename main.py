@@ -1,11 +1,13 @@
 import requests
 
 # inputs
-date = "03-05-2021"
-district_name = "gorakhpur"
-age = 25
+
+date = "03-05-2021"     # will show you all the available centres 7 days from this date
+district_name = "lucknow"     # edit the name of your district
+age = 50        # age of the person to be vaccinated
 
 # code
+
 districts = [{"district_id": 622, "district_name": "Agra"}, {"district_id": 623, "district_name": "Aligarh"},
              {"district_id": 625, "district_name": "Ambedkar Nagar"}, {"district_id": 626, "district_name": "Amethi"},
              {"district_id": 627, "district_name": "Amroha"}, {"district_id": 628, "district_name": "Auraiya"},
@@ -54,17 +56,16 @@ final_response = requests.get(
     params={
         'district_id': district_id,
         'date': date
-
     },
 )
 
-for center in final_response.json()["centers"]:
-    for details in center["sessions"]:
+for centre in final_response.json()["centers"]:
+    for details in centre["sessions"]:
         result = dict()
         if details['available_capacity'] > 0 and details["min_age_limit"] <= age:
-            result["name"] = center["name"]
-            result["block_name"] = center["block_name"]
-            result["pincode"] = center["pincode"]
+            result["name"] = centre["name"]
+            result["block_name"] = centre["block_name"]
+            result["pincode"] = centre["pincode"]
             result["min_age_limit"] = details["min_age_limit"]
             result["date"] = details["date"]
             result["available_capacity"] = details["available_capacity"]
