@@ -4,7 +4,7 @@ import json
 
 # inputs
 
-date = "03-05-2021"     # will show you all the available centres 7 days from this date
+date = "04-05-2021"     # will show you all the available centres 7 days from this date
 age = 50        # enter age of the person to be vaccinated
 state_name = "uttar pradesh"        # enter your state name
 district_name = "gorakhpur"        # enter your district name
@@ -16,10 +16,15 @@ For Daman and Diu enter state name state_name = "Daman and Diu"
 For Jammu and Kashmir enter state name state_name = "Jammu and Kashmir" 
 '''
 
-states = json.loads(os.popen("curl --silent https://cdn-api.co-vin.in/api/v2/admin/location/states").read())['states']
-state_id = str(next(item for item in states if item["state_name"] == state_name.title())['state_id'])
+unchanged_states = ["Andaman and Nicobar Islands", "Dadra and Nagar Haveli", "Daman and Diu", "Jammu and Kashmir"]
+if state_name not in unchanged_states:
+    state_name = state_name.title()
 
-districts = json.loads(os.popen("curl --silent https://cdn-api.co-vin.in/api/v2/admin/location/districts/"+state_id).read())['districts']
+states = json.loads(os.popen("curl --silent https://cdn-api.co-vin.in/api/v2/admin/location/states").read())['states']
+state_id = next(item for item in states if item["state_name"] == state_name)['state_id']
+
+district_url = str("https://cdn-api.co-vin.in/api/v2/admin/location/districts/"+str(state_id))
+districts = json.loads(os.popen("curl --silent "+district_url).read())['districts']
 district_id = next(item for item in districts if item["district_name"] == district_name.capitalize())['district_id']
 
 
