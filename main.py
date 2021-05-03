@@ -9,6 +9,13 @@ age = 50        # enter age of the person to be vaccinated
 state_name = "uttar pradesh"        # enter your state name
 district_name = "gorakhpur"        # enter your district name
 
+'''
+For Andaman and Nicobar Islands enter state name state_name = "Andaman and Nicobar Islands" 
+For Dadra and Nagar Haveli enter state name state_name = "Dadra and Nagar Haveli" 
+For Daman and Diu enter state name state_name = "Daman and Diu" 
+For Jammu and Kashmir enter state name state_name = "Jammu and Kashmir" 
+'''
+
 states = json.loads(os.popen("curl --silent https://cdn-api.co-vin.in/api/v2/admin/location/states").read())['states']
 state_id = str(next(item for item in states if item["state_name"] == state_name.title())['state_id'])
 
