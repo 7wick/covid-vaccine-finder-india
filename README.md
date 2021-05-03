@@ -1,5 +1,8 @@
 # covid-vaccine-finder-india
-Helps in filtering out all the health care centres with availability of Covid-19  vaccines in India
+Helps in filtering out all the health care centres with availability of Covid-19  vaccines in India.
+It resolves few of the issues present with official website https://www.cowin.gov.in:
+1. It helps you filter out only those centres which have vaccine(s) available. So it saves you from finding a needle in haystack. 
+2. It also helps you filter out only those centres which have vaccine(s) available for your age. So, you do not go through a list of centres who have vaccine, but not for you.
 
 
 # Ways to run it:
@@ -25,3 +28,11 @@ Note:
 
     > curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
     > python3 get-pip.py
+
+# Enhancements
+For now it works perfectly fine, for all the districts in the state of Uttar Pradesh and also any other district, if you know the district id of that district. 
+I have to work upon:
+1. Making it pan India
+2. Have some UI for it 
+
+Note: You can ask me the district id, if you do not know!
