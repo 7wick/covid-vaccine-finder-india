@@ -5,9 +5,11 @@ import json
 # inputs
 
 date = "04-05-2021"     # will show you all the available centres, 7 days from this date
-age = 50        # enter age of the person to be vaccinated
-state_name = "uttar pradesh"        # enter your state name
-district_name = "gorakhpur"        # enter your district name
+age = 25        # enter age of the person to be vaccinated
+# state_name = "uttar pradesh"        # enter your state name
+# district_name = "gorakhpur"        # enter your district name
+state_name = "west bengal"        # enter your state name
+district_name = "kolkata"        # enter your district name
 
 '''
 For Andaman and Nicobar Islands enter state name state_name = "Andaman and Nicobar Islands" 
@@ -15,6 +17,7 @@ For Dadra and Nagar Haveli enter state name state_name = "Dadra and Nagar Haveli
 For Daman and Diu enter state name state_name = "Daman and Diu" 
 For Jammu and Kashmir enter state name state_name = "Jammu and Kashmir" 
 '''
+
 
 #code
 
@@ -30,8 +33,8 @@ except Exception as err:
     raise SystemExit(err)
 
 try:
-    district_url = str("https://cdn-api.co-vin.in/api/v2/admin/location/districts/"+str(state_id))
-    districts = json.loads(os.popen("curl --silent "+district_url).read())['districts']
+    district_url = "https://cdn-api.co-vin.in/api/v2/admin/location/districts/{0}".format(str(state_id))
+    districts = json.loads(os.popen("curl --silent {0}".format(district_url)).read())['districts']
     district_id = next(item for item in districts if item["district_name"] == district_name.capitalize())['district_id']
 except Exception as err:
     print("\nInvalid district_name. Enter it correctly!")
